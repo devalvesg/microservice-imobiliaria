@@ -2,6 +2,7 @@ package com.glimoveis.Imob_back.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -25,10 +26,10 @@ public class User {
     @NotBlank(message = "O campo email não pode ser em branco")
     private String email;
 
-    @NotBlank(message = "O campo email não pode ser em branco")
+    @NotNull(message = "O campo email não pode ser em branco")
     private BigDecimal cpf;
 
-    @OneToMany(mappedBy = "immobiles")
+    @OneToMany(mappedBy = "user")
     private List<Immobiles> immobiles;
 
     public User(String name, String email, BigDecimal cpf){

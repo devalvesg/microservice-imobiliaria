@@ -17,11 +17,11 @@ public class Informations {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne @JoinColumn(name = "immobile_id") @JsonIgnore
+    @OneToOne(mappedBy = "informations", cascade = CascadeType.ALL)
     private Immobiles immobiles;
 
     @NotBlank(message = "O valor do imóvel deve ser válido.")
-    private BigDecimal value;
+    private BigDecimal propertyValue;
 
     @NotBlank(message = "O número de quartos deve ser válido!")
     private Integer rooms;
