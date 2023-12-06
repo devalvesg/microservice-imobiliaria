@@ -26,16 +26,19 @@ public class Immobiles {
     private String title;
 
     @OneToOne
+    @JoinColumn(name = "adress_id")
+    private Adress adress;
+
+    @OneToOne
     @JoinColumn(name = "informations_id")
     private Informations informations;
 
     @NotBlank(message = "O campo de descrição não pode ser vázio") @Size(min = 20, max = 255, message = "O campo de descrição não pode ser menor que 20 e maior que 255 caracteres")
     private String description;
 
-    @Enumerated(EnumType.STRING)
-    private Type type;
+    private String type;
 
-    public Immobiles(String title, Informations informations, String description, Type type){
+    public Immobiles(String title, Informations informations, String description, String type){
         this.title = title;
         this.informations = informations;
         this.description = description;
