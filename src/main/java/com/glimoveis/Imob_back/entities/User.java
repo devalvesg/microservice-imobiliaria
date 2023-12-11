@@ -23,11 +23,15 @@ public class User {
 
     @NotBlank(message = "O campo nome não pode ser em branco")
     private String name;
+
     @NotBlank(message = "O campo email não pode ser em branco")
     private String email;
 
     @NotNull(message = "O campo email não pode ser em branco")
     private BigDecimal cpf;
+
+    @NotBlank(message = "O campo telefone não pode ser em branco")
+    private String phone;
 
     @OneToMany(mappedBy = "user")
     private List<Immobiles> immobiles;
