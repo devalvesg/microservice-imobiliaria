@@ -23,7 +23,7 @@ public class ImmobilesController {
         return ResponseEntity.ok(immobilesService.getAll());
     }
 
-    @GetMapping("/type/{type}")
+    @GetMapping("/{type}")
     public ResponseEntity<List<Immobiles>> findByType(@PathVariable("type")String type){
         return ResponseEntity.ok(immobilesService.findByType(type));
     }
@@ -34,18 +34,23 @@ public class ImmobilesController {
             Immobiles immobiles = immobilesService.findById(id);
             return ResponseEntity.ok(immobiles);
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Imóvel não encontrado em nossa base de dados.");
         }
     }
 
     @PostMapping("/novo-imovel")
     public ResponseEntity newImob(@RequestBody @Valid ImmobilesDTO immobilesDTO){
 
+        try{
         Immobiles immobiles = new Immobiles(immobilesDTO);
-
         immobilesService.newImmobile(immobiles);
-
         return ResponseEntity.status(HttpStatus.CREATED).body(immobiles);
+        }
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Houve um erro ao cadastrar o imóvel, verifique os dados e tente novamente!");
+        }
+
+
 
     }
 
