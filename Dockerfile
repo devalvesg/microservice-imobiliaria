@@ -12,4 +12,4 @@ FROM openjdk:17-jdk-slim
 EXPOSE 3000
 
 COPY --from=build /target/docker-spring-boot.jar app.jar
-ENTRYPOINT ["java", "-jar", "docker-spring-boot.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
