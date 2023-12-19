@@ -23,8 +23,8 @@ public class ImmobilesController {
         return ResponseEntity.ok(immobilesService.getAll());
     }
 
-    @GetMapping("/{type}")
-    public ResponseEntity<List<Immobiles>> findByType(@PathVariable("type")String type){
+    @GetMapping("/type")
+    public ResponseEntity<List<Immobiles>> findByType(@RequestParam(name = "type")String type){
         return ResponseEntity.ok(immobilesService.findByType(type));
     }
 
