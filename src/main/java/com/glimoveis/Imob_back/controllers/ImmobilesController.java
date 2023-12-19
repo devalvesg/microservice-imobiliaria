@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Locale;
 
 @RestController
 @RequestMapping("/imoveis")
@@ -25,6 +26,8 @@ public class ImmobilesController {
 
     @GetMapping("/type")
     public ResponseEntity<List<Immobiles>> findByType(@RequestParam(name = "type")String type){
+        type = type.toLowerCase();
+        type = type.substring(0, 1).toUpperCase() + type.substring(1);
         return ResponseEntity.ok(immobilesService.findByType(type));
     }
 
