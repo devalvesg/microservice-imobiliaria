@@ -15,4 +15,12 @@ public class UserService {
     public void newUser(User user){
         userRepository.save(user);
     }
+
+    public User login (String email, String password){
+        User user = userRepository.login(email, password);
+        if(user != null){
+            return user;
+        }
+        throw new RuntimeException();
+    }
 }
