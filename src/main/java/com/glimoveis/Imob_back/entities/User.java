@@ -6,8 +6,11 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.List;
 
 @Getter
@@ -16,7 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Entity(name = "Users")
-public class User {
+public class User implements UserDetails {
 
 
     @Id
@@ -41,8 +44,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Immobiles> immobiles;
 
-    public User(String name, String email, String cpf, String phone){
+    public User(String name, String email, String password, String cpf, String phone){
         this.name = name;
+        this.password = password;
         this.email = email;
         this.cpf = cpf;
         this.phone = phone;
@@ -54,5 +58,35 @@ public class User {
         this.cpf = userDTO.cpf();
         this.phone = userDTO.phone();
         this.password = userDTO.password();
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

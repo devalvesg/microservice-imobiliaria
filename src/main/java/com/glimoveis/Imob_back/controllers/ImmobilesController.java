@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Base64;
 import java.util.List;
 import java.util.Locale;
 
@@ -43,19 +44,13 @@ public class ImmobilesController {
 
     @PostMapping("/novo-imovel")
     public ResponseEntity newImob(@RequestBody @Valid ImmobilesDTO immobilesDTO){
-
         try{
-        Immobiles immobiles = new Immobiles(immobilesDTO);
-        immobilesService.newImmobile(immobiles);
-        return ResponseEntity.status(HttpStatus.CREATED).body(immobiles);
+            Immobiles immobiles = new Immobiles(immobilesDTO);
+            immobilesService.newImmobile(immobiles);
+            return ResponseEntity.status(HttpStatus.CREATED).body(immobiles);
         }
         catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Houve um erro ao cadastrar o imóvel, verifique os dados e tente novamente!");
         }
-
-
-
     }
-
-
 }

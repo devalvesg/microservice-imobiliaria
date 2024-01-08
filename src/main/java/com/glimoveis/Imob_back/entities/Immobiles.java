@@ -12,6 +12,7 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -46,12 +47,15 @@ public class Immobiles {
     @JsonFormat(pattern = "dd/MM/yyyy | HH:mm")
     private LocalDateTime datePublish;
 
-    public Immobiles(String title, Informations informations,Adress adress, String description, String type){
+    @Lob
+    private List<String> images;
+    public Immobiles(String title, Informations informations,Adress adress, String description, String type, List<String> images){
         this.title = title;
         this.adress = adress;
         this.informations = informations;
         this.description = description;
         this.type = type;
+        this.images = images;
     }
 
     public Immobiles(ImmobilesDTO immobilesDTO){
@@ -60,5 +64,6 @@ public class Immobiles {
         this.informations = immobilesDTO.informations();
         this.description = immobilesDTO.description();
         this.type = immobilesDTO.type();
+        this.images = immobilesDTO.images();
     }
 }

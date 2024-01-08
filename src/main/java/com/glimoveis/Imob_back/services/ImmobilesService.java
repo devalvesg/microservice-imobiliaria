@@ -42,16 +42,16 @@ public class ImmobilesService {
         List<Immobiles> immobiles = immobileRepository.findByType(type);
         return immobiles;
     }
-    private Boolean hasId;
+
     public Immobiles findById(Long id){
         Immobiles immobiles = immobileRepository.findById(id).orElseThrow(ImmobilesException::new);
         return immobiles;
     }
 
     public void newImmobile(Immobiles immobiles){
-
         immobiles.setDatePublish(LocalDateTime.now());
         immobileRepository.save(immobiles);
-
     }
+
+
 }
