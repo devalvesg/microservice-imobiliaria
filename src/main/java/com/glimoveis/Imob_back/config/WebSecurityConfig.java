@@ -32,6 +32,8 @@ public class WebSecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
                         .requestMatchers(HttpMethod.GET, "/imoveis").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/imoveis/{id}").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/imoveis/type").permitAll()
                         .anyRequest()
                         .authenticated())
                 .addFilterBefore(SecurityFilter, UsernamePasswordAuthenticationFilter.class)
