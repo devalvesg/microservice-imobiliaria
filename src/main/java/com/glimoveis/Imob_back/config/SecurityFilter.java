@@ -1,6 +1,5 @@
 package com.glimoveis.Imob_back.config;
 
-import com.glimoveis.Imob_back.entities.User;
 import com.glimoveis.Imob_back.repositories.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

@@ -1,8 +1,7 @@
-package com.glimoveis.Imob_back.entities;
+package com.glimoveis.Imob_back.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -12,7 +11,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-@Entity(name = "informations")
+@Entity(name = "tb_informations")
 public class Informations {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

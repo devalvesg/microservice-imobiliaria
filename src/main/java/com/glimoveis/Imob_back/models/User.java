@@ -1,6 +1,5 @@
-package com.glimoveis.Imob_back.entities;
+package com.glimoveis.Imob_back.models;
 
-import com.glimoveis.Imob_back.DTOs.ImmobilesDTO;
 import com.glimoveis.Imob_back.DTOs.UserDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -9,7 +8,6 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
 
@@ -18,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-@Entity(name = "Users")
+@Entity(name = "tb_users")
 public class User implements UserDetails {
 
 

@@ -1,4 +1,4 @@
-package com.glimoveis.Imob_back.entities;
+package com.glimoveis.Imob_back.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -10,7 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-@Entity(name = "Adress")
+@Entity(name = "tb_adress")
 public class Adress {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

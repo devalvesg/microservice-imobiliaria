@@ -1,6 +1,6 @@
 package com.glimoveis.Imob_back.config;
 
-import com.glimoveis.Imob_back.entities.User;
+import com.glimoveis.Imob_back.models.User;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.time.Instant;

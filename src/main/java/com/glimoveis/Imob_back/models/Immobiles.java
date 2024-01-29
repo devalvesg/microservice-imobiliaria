@@ -1,17 +1,14 @@
-package com.glimoveis.Imob_back.entities;
+package com.glimoveis.Imob_back.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.glimoveis.Imob_back.DTOs.ImmobilesDTO;
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -19,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-@Entity(name = "immobiles")
+@Entity(name = "tb_immobiles")
 public class Immobiles {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

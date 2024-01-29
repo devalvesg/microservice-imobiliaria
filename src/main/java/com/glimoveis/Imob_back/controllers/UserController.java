@@ -3,7 +3,7 @@ package com.glimoveis.Imob_back.controllers;
 import com.glimoveis.Imob_back.DTOs.AuthenticationDTO;
 import com.glimoveis.Imob_back.DTOs.LoginResponseDTO;
 import com.glimoveis.Imob_back.config.TokenService;
-import com.glimoveis.Imob_back.entities.User;
+import com.glimoveis.Imob_back.models.User;
 import com.glimoveis.Imob_back.repositories.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

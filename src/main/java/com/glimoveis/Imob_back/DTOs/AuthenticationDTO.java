@@ -1,6 +1,6 @@
 package com.glimoveis.Imob_back.DTOs;
 
-import com.glimoveis.Imob_back.entities.User;
+import com.glimoveis.Imob_back.models.User;
 
 public class AuthenticationDTO {
     private String email;

@@ -2,8 +2,8 @@ package com.glimoveis.Imob_back.controllers;
 
 import com.glimoveis.Imob_back.DTOs.DeleteImobDTO;
 import com.glimoveis.Imob_back.DTOs.ImmobilesDTO;
-import com.glimoveis.Imob_back.entities.Immobiles;
-import com.glimoveis.Imob_back.entities.User;
+import com.glimoveis.Imob_back.models.Immobiles;
+import com.glimoveis.Imob_back.models.User;
 import com.glimoveis.Imob_back.services.ImmobilesService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -11,9 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Base64;
 import java.util.List;
-import java.util.Locale;
 
 @RestController
 @RequestMapping("/imoveis")

@@ -1,16 +1,12 @@
 package com.glimoveis.Imob_back.services;
 
-import com.auth0.jwt.impl.ClaimsHolder;
-import com.glimoveis.Imob_back.entities.Adress;
-import com.glimoveis.Imob_back.entities.Immobiles;
-import com.glimoveis.Imob_back.entities.Informations;
-import com.glimoveis.Imob_back.entities.User;
+import com.glimoveis.Imob_back.models.Immobiles;
+import com.glimoveis.Imob_back.models.User;
 import com.glimoveis.Imob_back.exceptions.ImmobilesException;
 import com.glimoveis.Imob_back.repositories.AdressRepository;
 import com.glimoveis.Imob_back.repositories.ImmobileRepository;
 import com.glimoveis.Imob_back.repositories.InformationsRepository;
 import com.glimoveis.Imob_back.repositories.UserRepository;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;

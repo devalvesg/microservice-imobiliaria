@@ -1,8 +1,7 @@
 package com.glimoveis.Imob_back.repositories;
 
-import com.glimoveis.Imob_back.entities.Immobiles;
+import com.glimoveis.Imob_back.models.Immobiles;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
