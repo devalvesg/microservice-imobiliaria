@@ -36,6 +36,7 @@ public class Immobiles {
     @JoinColumn(name = "informations_id")
     private Informations informations;
 
+    @Column(columnDefinition = "TEXT")
     @NotBlank(message = "O campo de descrição não pode ser vázio") @Size(min = 20, max = 255, message = "O campo de descrição não pode ser menor que 20 e maior que 255 caracteres")
     private String description;
 
