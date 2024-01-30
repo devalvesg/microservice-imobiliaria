@@ -45,7 +45,6 @@ public class Immobiles {
     @JsonFormat(pattern = "dd/MM/yyyy | HH:mm")
     private LocalDateTime datePublish;
 
-    @Lob
     private List<String> images;
     public Immobiles(String title, Informations informations,Adress adress, String description, String type, List<String> images){
         this.title = title;
