@@ -51,7 +51,7 @@ public class ImmobilesController {
             return ResponseEntity.status(HttpStatus.CREATED).body(immobiles);
         }
         catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Houve um erro ao cadastrar o imóvel, verifique os dados e tente novamente!");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
