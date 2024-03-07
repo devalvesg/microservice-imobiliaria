@@ -12,11 +12,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.web.bind.annotation.*;
 
 @RestController @RequestMapping("/")
 public class UserController {
@@ -41,7 +42,6 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity newUser(@RequestBody @Valid User data){
         if(userRepository.findByEmailUser(data.getEmail()) != null) return ResponseEntity.badRequest().body("Email já cadastrado no sistema");
-
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.getPassword());
         User newUser = new User(data.getName(), data.getEmail(), encryptedPassword, data.getCpf(), data.getPhone());
 
@@ -66,5 +66,10 @@ public class UserController {
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("As credenciais não coincidem com nosso banco de dados");
         }
+    }
+
+
+    public void loginGoogle() {
+
     }
 }

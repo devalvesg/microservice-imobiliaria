@@ -70,4 +70,11 @@ public class ImmobilesController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+
+    @GetMapping("/usuario")
+    public ResponseEntity imobByUserLogged(@AuthenticationPrincipal User user){
+        if(user == null) return ResponseEntity.badRequest().body("Você precisa estar logado para ver os seus imóveis");
+        List<Immobiles> imoveisByUser = immobilesService.imobByUserLogged(user.getId());
+        return ResponseEntity.ok().body(imoveisByUser);
+    }
 }

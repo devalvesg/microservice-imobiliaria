@@ -1,6 +1,7 @@
 package com.glimoveis.Imob_back.config.SecurityConfigs;
 
 import com.glimoveis.Imob_back.config.CorsConfigs.CorsConfig;
+import com.glimoveis.Imob_back.controllers.UserController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +15,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -25,11 +27,15 @@ import java.util.Arrays;
 @EnableWebSecurity
 @EnableMethodSecurity
 public class WebSecurityConfig {
-    @Autowired
-    SecurityFilter SecurityFilter;
 
-    @Autowired
+    private SecurityFilter securityFilter;
+
     private CorsConfig corsConfig;
+
+    public WebSecurityConfig(SecurityFilter securityFilter, CorsConfig corsConfig){
+        this.corsConfig = corsConfig;
+        this.securityFilter = securityFilter;
+    }
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 
@@ -39,11 +45,15 @@ public class WebSecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
                         .requestMatchers(HttpMethod.GET, "/imoveis").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/login/oauth").permitAll()
                         .requestMatchers(HttpMethod.GET, "/imoveis/{id}").permitAll()
                         .requestMatchers(HttpMethod.GET, "/imoveis/type").permitAll()
                         .anyRequest()
                         .authenticated())
-                .addFilterBefore(SecurityFilter, UsernamePasswordAuthenticationFilter.class)
+                .oauth2Login(oauth ->
+                        oauth.successHandler(oauth2AuthenticationSuccessHandler())
+                )
+                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
@@ -55,6 +65,11 @@ public class WebSecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler oauth2AuthenticationSuccessHandler() {
+        return new CustomOAuth2AuthenticationSuccessHandler();
     }
 
 }

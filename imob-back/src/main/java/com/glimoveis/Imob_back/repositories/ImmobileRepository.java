@@ -8,4 +8,6 @@ import java.util.List;
 public interface ImmobileRepository extends JpaRepository<Immobiles, Long> {
 
 	List<Immobiles> findByType(String type);
+
+	List<Immobiles> findByuserId(String id);
 }

@@ -68,6 +68,8 @@ public class ImmobilesService {
     }
 
 
-
-
+    public List<Immobiles> imobByUserLogged(String id) {
+        List<Immobiles> imobUser = immobileRepository.findByuserId(id);
+        return imobUser;
+    }
 }
