@@ -26,24 +26,24 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app/imob-back
 
 # Copia o artefato compilado da fase anterior
-COPY --from=build /app/imob-back/target/docker-spring-boot.jar app.jar
+COPY --from=build /app/imob-back/target/docker-spring-boot.jar app-service.jar
 
 # Expõe a porta necessária para a aplicação
 EXPOSE 3000
 
 # Comando de entrada para iniciar a aplicação "imob-back"
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "app-service.jar"]
 
 
 # Define o diretório de trabalho para a aplicação "email-sending"
 WORKDIR /app/email-sending
 
 # Copia o artefato compilado da fase anterior
-COPY --from=build /app/email-sending/target/email-sending-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build /app/email-sending/target/email-sending-0.0.1-SNAPSHOT.jar email-service.jar
 
 # Expõe a porta necessária para a aplicação
 EXPOSE 3001
 
 # Comando de entrada para iniciar a aplicação "email-sending"
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "email-service.jar"]
 
