@@ -1,7 +1,7 @@
-FROM docker:20.10.11
+FROM docker/compose:1.29.2
 
 WORKDIR /app
 
 COPY docker-compose.yml /app
 
-CMD ["cd", ".\app","docker-compose", "up", "--build"]
+CMD ["docker-compose", "up", "--build"]
