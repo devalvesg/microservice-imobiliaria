@@ -4,4 +4,4 @@ WORKDIR /app
 
 COPY docker-compose.yml /app
 
-CMD ["docker-compose", "up", "--build"]
+CMD ["cd", ".\app","docker-compose", "up", "--build"]
