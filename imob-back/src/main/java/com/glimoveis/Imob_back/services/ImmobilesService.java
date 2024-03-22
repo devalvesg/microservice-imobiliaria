@@ -1,5 +1,6 @@
 package com.glimoveis.Imob_back.services;
 
+import com.glimoveis.Imob_back.DTOs.ImmobilesDTO;
 import com.glimoveis.Imob_back.models.Immobiles;
 import com.glimoveis.Imob_back.models.User;
 import com.glimoveis.Imob_back.exceptions.ImmobilesException;
@@ -47,12 +48,13 @@ public class ImmobilesService {
         return immobiles;
     }
 
-    public void newImmobile(Immobiles immobiles, User user) throws Exception {
+    public Immobiles newImmobile(ImmobilesDTO immobilesDTO, User user) throws Exception {
+        Immobiles immobiles = new Immobiles(immobilesDTO);
         immobiles.setDatePublish(LocalDateTime.now());
 
         if(userRepository.findById(user.getId()) == null) throw new Exception("Você precisa fazer login para registrar um novo imóvel");
         immobiles.setUser(user);
-        immobileRepository.save(immobiles);
+        return immobileRepository.save(immobiles);
     }
 
 

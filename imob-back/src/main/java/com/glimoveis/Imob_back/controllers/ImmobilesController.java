@@ -37,8 +37,8 @@ public class ImmobilesController {
         return ResponseEntity.ok(immobilesService.findByType(type));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity findById(@PathVariable("id")Long id){
+    @GetMapping("/id")
+    public ResponseEntity findById(@RequestParam(name = "id")Long id){
         try{
             Immobiles immobiles = immobilesService.findById(id);
             return ResponseEntity.ok(immobiles);
@@ -51,8 +51,7 @@ public class ImmobilesController {
     @PostMapping("/novo-imovel")
     public ResponseEntity newImob(@RequestBody @Valid ImmobilesDTO immobilesDTO, @AuthenticationPrincipal User user){
         try{
-            Immobiles immobiles = new Immobiles(immobilesDTO);
-            immobilesService.newImmobile(immobiles, user);
+            Immobiles immobiles = immobilesService.newImmobile(immobilesDTO, user);
             return ResponseEntity.status(HttpStatus.CREATED).body(immobiles);
         }
         catch (Exception e){
