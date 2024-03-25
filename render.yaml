@@ -1,7 +1,8 @@
-
 services:
   - type: web
-  - name: aplicacao-service
+    runtime: java
+    name: aplicacao-service
+    repo: https://github.com/seu-usuario/imob-back # Repositório do seu aplicativo
     buildCommand: mvn clean install -DskipTests
     startCommand: java -jar application-service/target/docker-spring-boot.jar
     env: {}
@@ -9,7 +10,9 @@ services:
     ports:
       - 8080
   - type: web
-  - name: email-service
+    runtime: java
+    name: email-service
+    repo: https://github.com/seu-usuario/email-sending # Repositório do seu aplicativo
     buildCommand: mvn clean install $MAVEN_BUILD_OPTIONS
     startCommand: java -jar email-service/target/email-service.jar
     env: {}
