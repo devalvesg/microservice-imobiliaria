@@ -5,12 +5,12 @@ services:
     name: imob-back
     repo: https://github.com/devalvesg/microservice-imobiliaria # Default: Repo containing render.yaml
     healthCheckPath: /
-    dockerfilePath: ./imob-back
+    dockerfilePath: ./imob-back/Dockerfile
   - type: web
     runtime: docker
     plan: free
     name: email-sending
     repo: https://github.com/devalvesg/microservice-imobiliaria # Default: Repo containing render.yaml
     healthCheckPath: /
-    dockerfilePath: ./email-sending
+    dockerfilePath: ./email-sending/Dockerfile
 
