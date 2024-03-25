@@ -1,3 +1,4 @@
+type: web
 services:
   - name: aplicacao-service
     buildCommand: mvn clean install -DskipTests
