@@ -1,0 +1,17 @@
+services:
+  - name: aplicacao-service
+    buildCommand: mvn clean install -DskipTests
+    startCommand: java -jar application-service/target/docker-spring-boot.jar
+    env: {}
+    envVars: []
+    ports:
+      - 8080
+  - name: email-service
+    buildCommand: mvn clean install $MAVEN_BUILD_OPTIONS
+    startCommand: java -jar email-service/target/email-service.jar
+    env: {}
+    envVars: []
+    ports:
+      - 8081
+    dependsOn:
+      - aplicacao-service
