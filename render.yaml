@@ -2,22 +2,22 @@ services:
   - type: web
     runtime: java
     name: aplicacao-service
-    repo: https://github.com/seu-usuario/imob-back # Repositório do seu aplicativo
+    repo: https://github.com/dev-alvesg/microservice-imobiliaria # Repositório do seu aplicativo
     buildCommand: mvn clean install -DskipTests
     startCommand: java -jar application-service/target/docker-spring-boot.jar
     env: {}
     envVars: []
     ports:
-      - 8080
+      - [8080]
   - type: web
     runtime: java
     name: email-service
-    repo: https://github.com/seu-usuario/email-sending # Repositório do seu aplicativo
+    repo: https://github.com/dev-alvesg/microservice-imobiliaria # Repositório do seu aplicativo
     buildCommand: mvn clean install $MAVEN_BUILD_OPTIONS
     startCommand: java -jar email-service/target/email-service.jar
     env: {}
     envVars: []
     ports:
-      - 8081
+      - [8081]
     dependsOn:
       - aplicacao-service
