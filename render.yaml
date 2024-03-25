@@ -1,23 +1,16 @@
 services:
   - type: web
-    runtime: java
-    name: aplicacao-service
-    repo: https://github.com/dev-alvesg/microservice-imobiliaria # Repositório do seu aplicativo
-    buildCommand: mvn clean install -DskipTests
-    startCommand: java -jar application-service/target/docker-spring-boot.jar
-    env: {}
-    envVars: []
-    ports:
-      - [8080]
+    plan: free
+    runtime: docker
+    name: imob-back
+    repo: https://github.com/devalvesg/microservice-imobiliaria # Default: Repo containing render.yaml
+    healthCheckPath: /
+    dockerfilePath: ./imob-back
   - type: web
-    runtime: java
-    name: email-service
-    repo: https://github.com/dev-alvesg/microservice-imobiliaria # Repositório do seu aplicativo
-    buildCommand: mvn clean install $MAVEN_BUILD_OPTIONS
-    startCommand: java -jar email-service/target/email-service.jar
-    env: {}
-    envVars: []
-    ports:
-      - [8081]
-    dependsOn:
-      - aplicacao-service
+    runtime: docker
+    plan: free
+    name: email-sending
+    repo: https://github.com/devalvesg/microservice-imobiliaria # Default: Repo containing render.yaml
+    healthCheckPath: /
+    dockerfilePath: ./email-sending
+
