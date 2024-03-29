@@ -48,7 +48,7 @@ public class ImmobilesService {
         return immobiles;
     }
 
-    public Immobiles newImmobile(ImmobilesDTO immobilesDTO, User user) throws Exception {
+    public Immobiles newProperty(ImmobilesDTO immobilesDTO, User user) throws Exception {
         Immobiles immobiles = new Immobiles(immobilesDTO);
         immobiles.setDatePublish(LocalDateTime.now());
 

@@ -48,10 +48,10 @@ public class ImmobilesController {
     }
 
 
-    @PostMapping("/novo-imovel")
-    public ResponseEntity newImob(@RequestBody @Valid ImmobilesDTO immobilesDTO, @AuthenticationPrincipal User user){
+    @PostMapping("/new-property")
+    public ResponseEntity newProperty(@RequestBody @Valid ImmobilesDTO immobilesDTO, @AuthenticationPrincipal User user){
         try{
-            Immobiles immobiles = immobilesService.newImmobile(immobilesDTO, user);
+            Immobiles immobiles = immobilesService.newProperty(immobilesDTO, user);
             return ResponseEntity.status(HttpStatus.CREATED).body(immobiles);
         }
         catch (Exception e){
