@@ -32,9 +32,12 @@ public class WebSecurityConfig {
 
     private CorsConfig corsConfig;
 
-    public WebSecurityConfig(SecurityFilter securityFilter, CorsConfig corsConfig){
+    private CustomAcessDeniedHandler customAcessDeniedHandler;
+
+    public WebSecurityConfig(SecurityFilter securityFilter, CorsConfig corsConfig, CustomAcessDeniedHandler customAcessDeniedHandler){
         this.corsConfig = corsConfig;
         this.securityFilter = securityFilter;
+        this.customAcessDeniedHandler = customAcessDeniedHandler;
     }
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
@@ -50,10 +53,11 @@ public class WebSecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/imoveis/type").permitAll()
                         .anyRequest()
                         .authenticated())
-                .oauth2Login(oauth ->
-                        oauth.successHandler(oauth2AuthenticationSuccessHandler())
-                )
+                //.oauth2Login(oauth ->
+                        //oauth.successHandler(oauth2AuthenticationSuccessHandler())
+                //)
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling().accessDeniedHandler(customAcessDeniedHandler).and()
                 .build();
     }
 

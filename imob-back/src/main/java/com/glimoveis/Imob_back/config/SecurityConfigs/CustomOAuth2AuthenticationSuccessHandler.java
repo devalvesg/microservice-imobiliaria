@@ -16,7 +16,6 @@ public class CustomOAuth2AuthenticationSuccessHandler implements AuthenticationS
 
         String email = oAuth2User.getAttribute("email");
         String name = oAuth2User.getAttribute("name");
-
         System.out.println(email + " " + name);
     }
 }
