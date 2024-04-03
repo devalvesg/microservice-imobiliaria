@@ -55,7 +55,7 @@ public class ImmobilesController {
             return ResponseEntity.status(HttpStatus.CREATED).body(immobiles);
         }
         catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
@@ -64,16 +64,19 @@ public class ImmobilesController {
         Long id = imobDel.id();
         try{
             immobilesService.deleteImob(id, user);
-            return ResponseEntity.status(HttpStatus.OK).body("O imóvel foi deletado com sucesso!");
+            return ResponseEntity.ok().body("O imóvel foi deletado com sucesso!");
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
     @GetMapping("/usuario")
     public ResponseEntity imobByUserLogged(@AuthenticationPrincipal User user){
-        if(user == null) return ResponseEntity.badRequest().body("Você precisa estar logado para ver os seus imóveis");
-        List<Immobiles> imoveisByUser = immobilesService.imobByUserLogged(user.getId());
+        try{
+        List<Immobiles> imoveisByUser = immobilesService.imobByUserLogged(user);
         return ResponseEntity.ok().body(imoveisByUser);
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }

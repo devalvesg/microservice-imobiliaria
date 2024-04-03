@@ -29,7 +29,7 @@ public class Immobiles {
     private String title;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "adress_id")
+    @JoinColumn(name = "address_id")
     private Address address;
 
     @OneToOne(cascade = CascadeType.ALL)

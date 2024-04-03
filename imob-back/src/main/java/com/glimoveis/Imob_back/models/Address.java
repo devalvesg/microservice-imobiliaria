@@ -10,7 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-@Entity(name = "tb_adress")
+@Entity(name = "tb_address")
 public class Address {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +24,7 @@ public class Address {
     private String neighborhood;
     private String number;
 
-    @OneToOne(mappedBy = "adress") @JsonIgnore
+    @OneToOne(mappedBy = "address") @JsonIgnore
     private Immobiles immobiles;
 
     public Address(String street, String neighborhood, String number, String city, String state) {

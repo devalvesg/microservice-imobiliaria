@@ -4,7 +4,7 @@ import com.glimoveis.Imob_back.DTOs.ImmobilesDTO;
 import com.glimoveis.Imob_back.models.Immobiles;
 import com.glimoveis.Imob_back.models.User;
 import com.glimoveis.Imob_back.exceptions.ImmobilesException;
-import com.glimoveis.Imob_back.repositories.AdressRepository;
+import com.glimoveis.Imob_back.repositories.AddressRepository;
 import com.glimoveis.Imob_back.repositories.ImmobileRepository;
 import com.glimoveis.Imob_back.repositories.InformationsRepository;
 import com.glimoveis.Imob_back.repositories.UserRepository;
@@ -12,25 +12,24 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ImmobilesService {
     private ImmobileRepository immobileRepository;
     private InformationsRepository informationsRepository;
     private UserRepository userRepository;
-    private AdressRepository adressRepository;
+    private AddressRepository addressRepository;
 
     public ImmobilesService(ImmobileRepository immobileRepository,
                             InformationsRepository informationsRepository,
                             UserRepository userRepository,
-                            AdressRepository adressRepository
+                            AddressRepository addressRepository
 
     ){
         this.immobileRepository = immobileRepository;
         this.informationsRepository = informationsRepository;
         this.userRepository = userRepository;
-        this.adressRepository = adressRepository;
+        this.addressRepository = addressRepository;
     }
 
     public List<Immobiles> getAll(){
@@ -68,8 +67,9 @@ public class ImmobilesService {
     }
 
 
-    public List<Immobiles> imobByUserLogged(String id) {
-        List<Immobiles> imobUser = immobileRepository.findByuserId(id);
+    public List<Immobiles> imobByUserLogged(User user) throws Exception {
+        if(user == null) throw new Exception("Você precisa estar logado para ver os seus imóveis");
+        List<Immobiles> imobUser = immobileRepository.findByUserId(user.getId());
         return imobUser;
     }
 }
