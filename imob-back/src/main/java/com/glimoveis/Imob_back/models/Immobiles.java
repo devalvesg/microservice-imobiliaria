@@ -30,7 +30,7 @@ public class Immobiles {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "adress_id")
-    private Adress adress;
+    private Address address;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "informations_id")
@@ -46,9 +46,9 @@ public class Immobiles {
     private LocalDateTime datePublish;
 
     private List<String> images;
-    public Immobiles(String title, Informations informations,Adress adress, String description, String type, List<String> images){
+    public Immobiles(String title, Informations informations, Address address, String description, String type, List<String> images){
         this.title = title;
-        this.adress = adress;
+        this.address = address;
         this.informations = informations;
         this.description = description;
         this.type = type;
@@ -57,7 +57,7 @@ public class Immobiles {
 
     public Immobiles(ImmobilesDTO immobilesDTO){
         this.title = immobilesDTO.title();
-        this.adress = immobilesDTO.adress();
+        this.address = immobilesDTO.address();
         this.informations = immobilesDTO.informations();
         this.description = immobilesDTO.description();
         this.type = immobilesDTO.type();

@@ -11,7 +11,7 @@ import lombok.*;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Entity(name = "tb_adress")
-public class Adress {
+public class Address {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,8 +27,10 @@ public class Adress {
     @OneToOne(mappedBy = "adress") @JsonIgnore
     private Immobiles immobiles;
 
-    public Adress(String street, String neighborhood, String number) {
+    public Address(String street, String neighborhood, String number, String city, String state) {
         this.street = street;
+        this.city = city;
+        this.state = state;
         this.neighborhood = neighborhood;
         this.number = number;
     }

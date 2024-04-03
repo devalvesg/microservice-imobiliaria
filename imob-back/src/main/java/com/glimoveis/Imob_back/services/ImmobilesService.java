@@ -60,11 +60,9 @@ public class ImmobilesService {
 
     public void deleteImob(Long id, User user) throws Exception {
 
-        Optional<Immobiles> optionalImob = immobileRepository.findById(id);
-        if (!optionalImob.isPresent()) throw new Exception("Imóvel não encontrado");
-        Immobiles delImob = optionalImob.get();
+        Immobiles immobiles = immobileRepository.findById(id).orElseThrow(ImmobilesException::new);
 
-        if(!user.getId().equals(delImob.getUser().getId())) throw new Exception("Você não tem permissão para alterar esse imóvel");
+        if(!user.getId().equals(immobiles.getUser().getId())) throw new Exception("Você não tem permissão para alterar esse imóvel");
 
         immobileRepository.deleteById(id);
     }
