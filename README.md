@@ -29,7 +29,7 @@ Esse projeto foi uma forma de buscar experiência com desenvolvimento de softwar
 
 
 ## Modelo Conceitual do Banco de Dados
-<img src="https://github.com/devalvesg/microservice-imobiliaria/modelo-conceitual-bd/ModeloConceitualImob.png"></img>
+<img src="https://github.com/devalvesg/microservice-imobiliaria/blob/main/modelo-conceitual-bd/ModeloConceitualImob.png"></img>
 
 
 ## Contribuições
