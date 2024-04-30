@@ -1,4 +1,4 @@
-package com.glimoveis.Imob_back.config.CorsConfigs;
+package com.glimoveis.Imob_back.configs.CorsConfigs;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

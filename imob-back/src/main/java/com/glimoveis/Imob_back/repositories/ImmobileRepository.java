@@ -1,5 +1,6 @@
 package com.glimoveis.Imob_back.repositories;
 
+import com.glimoveis.Imob_back.DTOs.Responses.ImmobileResponse;
 import com.glimoveis.Imob_back.models.Immobiles;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -10,4 +11,6 @@ public interface ImmobileRepository extends JpaRepository<Immobiles, Long> {
 	List<Immobiles> findByType(String type);
 
 	List<Immobiles> findByUserId(String id);
+
+
 }

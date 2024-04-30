@@ -1,10 +1,12 @@
 package com.glimoveis.Imob_back.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.glimoveis.Imob_back.DTOs.UserDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import net.minidev.json.annotate.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -39,7 +41,7 @@ public class User implements UserDetails {
     @NotBlank(message = "O campo telefone não pode ser em branco")
     private String phone;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Immobiles> immobiles;
 
     public User(String name, String email, String password, String cpf, String phone){

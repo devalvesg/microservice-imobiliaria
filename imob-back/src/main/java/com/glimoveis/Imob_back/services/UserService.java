@@ -1,14 +1,12 @@
 package com.glimoveis.Imob_back.services;
 
 import com.glimoveis.Imob_back.DTOs.AuthenticationDTO;
-import com.glimoveis.Imob_back.DTOs.LoginResponseDTO;
-import com.glimoveis.Imob_back.DTOs.UserDTO;
-import com.glimoveis.Imob_back.DTOs.UserResponse;
-import com.glimoveis.Imob_back.config.SecurityConfigs.TokenService;
+import com.glimoveis.Imob_back.DTOs.Responses.LoginResponseDTO;
+import com.glimoveis.Imob_back.DTOs.Responses.UserResponse;
+import com.glimoveis.Imob_back.configs.SecurityConfigs.TokenService;
 import com.glimoveis.Imob_back.models.User;
 import com.glimoveis.Imob_back.producers.EmailProducer;
 import com.glimoveis.Imob_back.repositories.UserRepository;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

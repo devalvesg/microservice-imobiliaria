@@ -1,4 +1,4 @@
-package com.glimoveis.Imob_back.config.SecurityConfigs;
+package com.glimoveis.Imob_back.configs.SecurityConfigs;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

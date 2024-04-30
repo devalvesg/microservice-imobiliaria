@@ -1,22 +1,13 @@
 package com.glimoveis.Imob_back.controllers;
 
 import com.glimoveis.Imob_back.DTOs.*;
-import com.glimoveis.Imob_back.config.SecurityConfigs.TokenService;
+import com.glimoveis.Imob_back.DTOs.Responses.LoginResponseDTO;
 import com.glimoveis.Imob_back.models.User;
-import com.glimoveis.Imob_back.producers.EmailProducer;
-import com.glimoveis.Imob_back.repositories.UserRepository;
 import com.glimoveis.Imob_back.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.oauth2.core.oidc.user.OidcUser;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.web.bind.annotation.*;
 
 @RestController @RequestMapping("/")

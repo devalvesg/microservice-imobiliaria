@@ -1,8 +1,7 @@
 package com.glimoveis.Imob_back.producers;
 
-import com.glimoveis.Imob_back.DTOs.UserResponse;
+import com.glimoveis.Imob_back.DTOs.Responses.UserResponse;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.amqp.RabbitTemplateConfigurer;
 import org.springframework.stereotype.Component;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
