@@ -1,8 +1,7 @@
-package com.glimoveis.Imob_back.config.RabbitMQConfigs;
+package com.glimoveis.Imob_back.configs.RabbitMQConfigs;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

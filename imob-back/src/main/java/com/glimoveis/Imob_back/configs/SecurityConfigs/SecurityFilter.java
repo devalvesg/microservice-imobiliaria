@@ -1,4 +1,4 @@
-package com.glimoveis.Imob_back.config.SecurityConfigs;
+package com.glimoveis.Imob_back.configs.SecurityConfigs;
 
 import com.glimoveis.Imob_back.repositories.UserRepository;
 import jakarta.servlet.FilterChain;

@@ -45,6 +45,8 @@ public class Immobiles {
     @JsonFormat(pattern = "dd/MM/yyyy | HH:mm")
     private LocalDateTime datePublish;
 
+
+    @Column(name="images")
     private List<String> images;
     public Immobiles(String title, Informations informations, Address address, String description, String type, List<String> images){
         this.title = title;
@@ -61,6 +63,5 @@ public class Immobiles {
         this.informations = immobilesDTO.informations();
         this.description = immobilesDTO.description();
         this.type = immobilesDTO.type();
-        this.images = immobilesDTO.images();
     }
 }

@@ -47,7 +47,6 @@ public class ImmobileMocks {
                 .address(ADDRESS)
                 .type(TYPE)
                 .informations(INFORMATIONS)
-                .images(IMAGES)
                 .description(DESCRIPTION).build();
         return dto;
     }

@@ -1,8 +1,6 @@
-package com.glimoveis.Imob_back.config.SecurityConfigs;
+package com.glimoveis.Imob_back.configs.SecurityConfigs;
 
-import com.glimoveis.Imob_back.config.CorsConfigs.CorsConfig;
-import com.glimoveis.Imob_back.controllers.UserController;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.glimoveis.Imob_back.configs.CorsConfigs.CorsConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -17,11 +15,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -50,7 +43,7 @@ public class WebSecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/imoveis").permitAll()
                         .requestMatchers(HttpMethod.GET, "/login/oauth").permitAll()
                         .requestMatchers(HttpMethod.GET, "/imoveis/{id}").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/imoveis/type").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/imoveis/type/*").permitAll()
                         .anyRequest()
                         .authenticated())
                 //.oauth2Login(oauth ->

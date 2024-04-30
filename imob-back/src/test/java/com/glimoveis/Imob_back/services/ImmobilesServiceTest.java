@@ -1,5 +1,6 @@
 package com.glimoveis.Imob_back.services;
 
+import com.glimoveis.Imob_back.DTOs.Responses.ImmobileResponse;
 import com.glimoveis.Imob_back.exceptions.ImmobilesException;
 import com.glimoveis.Imob_back.models.Immobiles;
 import com.glimoveis.Imob_back.models.User;
@@ -11,23 +12,28 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Optional;
 
 import static com.glimoveis.Imob_back.utils.ImmobileMocks.*;
+import static com.glimoveis.Imob_back.utils.S3Mock.*;
 import static com.glimoveis.Imob_back.utils.UserMocks.mockUserDTO;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.when;
 
 class ImmobilesServiceTest {
 
     @Mock
     ImmobileRepository immobileRepository;
 
+    @Mock
+    S3Service s3Service;
+
     @InjectMocks
     ImmobilesService immobilesService;
+
 
     @BeforeEach
     void setUp() {
@@ -37,9 +43,10 @@ class ImmobilesServiceTest {
     @Test
     @DisplayName("Should return a Immobiles List when calling method get all")
     void getAll() {
+        Immobiles immobiles = new Immobiles(mockImmobileDTO());
         when(immobileRepository.findAll()).thenReturn(mockImmobileList());
-
-        List<Immobiles> immobilesList = this.immobilesService.getAll();
+        when(s3Service.generateUrlImages(immobiles)).thenReturn(mockImages());
+        List<ImmobileResponse> immobilesList = this.immobilesService.getAll();
 
         assertNotNull(immobilesList);
         assertEquals(immobilesList.get(0).getTitle(), TITLE);
@@ -48,7 +55,7 @@ class ImmobilesServiceTest {
         assertEquals(immobilesList.get(0).getAddress(), ADDRESS);
         assertEquals(immobilesList.get(0).getInformations(), INFORMATIONS);
         assertEquals(immobilesList.get(0).getDatePublish(), DATEPUBLISH);
-        assertEquals(immobilesList.get(0).getUser(), USER);
+        assertEquals(immobilesList.get(0).getUserId(), USER.getId());
     }
 
     @Test
@@ -57,7 +64,7 @@ class ImmobilesServiceTest {
         String type = "VENDA";
         when(this.immobileRepository.findByType(type)).thenReturn(mockImmobileType());
 
-        List<Immobiles> immobilesList = this.immobilesService.findByType(type);
+        List<ImmobileResponse> immobilesList = this.immobilesService.findByType(type);
         assertNotNull(immobilesList);
         System.out.println(immobilesList);
 
@@ -70,7 +77,7 @@ class ImmobilesServiceTest {
     void findById() {
         when(this.immobileRepository.findById(Long.valueOf(1111))).thenReturn(Optional.of(mockImmobileEntity()));
 
-        Immobiles immobiles = this.immobilesService.findById(Long.valueOf(1111));
+        ImmobileResponse immobiles = this.immobilesService.findById(Long.valueOf(1111));
 
         assertNotNull(immobiles);
         assertEquals(immobiles.getId(), ID);
@@ -82,7 +89,7 @@ class ImmobilesServiceTest {
         when(this.immobileRepository.findById(Long.valueOf(1111))).thenReturn(Optional.empty());
 
         assertThrows(ImmobilesException.class, () -> {
-            Immobiles immobiles = this.immobilesService.findById(Long.valueOf(1111));
+            ImmobileResponse immobiles = this.immobilesService.findById(Long.valueOf(1111));
         });
     }
 
@@ -112,7 +119,7 @@ class ImmobilesServiceTest {
     void imobByUserLogged() throws Exception {
         when(this.immobileRepository.findByUserId(USER.getId())).thenReturn(mockImmobileList());
 
-        List<Immobiles> immobiles = this.immobilesService.imobByUserLogged(USER);
+        List<ImmobileResponse> immobiles = this.immobilesService.imobByUserLogged(USER);
         assertNotNull(immobiles);
         assertEquals(immobiles.get(0).getTitle(), TITLE);
         assertEquals(immobiles.get(0).getDescription(), DESCRIPTION);
@@ -120,7 +127,7 @@ class ImmobilesServiceTest {
         assertEquals(immobiles.get(0).getAddress(), ADDRESS);
         assertEquals(immobiles.get(0).getInformations(), INFORMATIONS);
         assertEquals(immobiles.get(0).getDatePublish(), DATEPUBLISH);
-        assertEquals(immobiles.get(0).getUser(), USER);
+        assertEquals(immobiles.get(0).getUserId(), USER.getId());
     }
 
     @Test
@@ -129,7 +136,7 @@ class ImmobilesServiceTest {
         when(this.immobileRepository.findByUserId(USER.getId())).thenReturn(mockImmobileList());
 
         assertThrows(Exception.class, () ->{
-            List<Immobiles> immobiles = this.immobilesService.imobByUserLogged(null);
+            List<ImmobileResponse> immobiles = this.immobilesService.imobByUserLogged(null);
         });
 
 

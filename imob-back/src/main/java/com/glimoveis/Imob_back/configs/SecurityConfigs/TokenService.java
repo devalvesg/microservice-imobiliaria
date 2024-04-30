@@ -1,4 +1,4 @@
-package com.glimoveis.Imob_back.config.SecurityConfigs;
+package com.glimoveis.Imob_back.configs.SecurityConfigs;
 
 import com.glimoveis.Imob_back.models.User;
 import org.springframework.beans.factory.annotation.Value;

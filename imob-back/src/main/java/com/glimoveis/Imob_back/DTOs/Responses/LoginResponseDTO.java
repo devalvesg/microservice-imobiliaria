@@ -1,4 +1,4 @@
-package com.glimoveis.Imob_back.DTOs;
+package com.glimoveis.Imob_back.DTOs.Responses;
 
 public class LoginResponseDTO {
 
