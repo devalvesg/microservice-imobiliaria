@@ -37,7 +37,7 @@ public class EmailModel {
 
     private LocalDateTime dataEnvio;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private StatusEmail statusEmail;
 
 }
