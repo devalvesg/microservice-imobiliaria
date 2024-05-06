@@ -2,6 +2,8 @@
 
 Esse projeto foi uma forma de buscar experiência com desenvolvimento de software, no qual o intuito era desenvolver um micro-serviço web de uma imobiliária e simular um projeto real do mercado, trabalhando com os conceitos de Engenharia de Software(Elicitação de requisitos, Documentações), Banco de dados (Modelo Conceitual e Físico) e Programação com a Linguagem Java e o Framework Spring(Programação Orientada a Objetos, Padrão SOLID e Testes Unitários da aplicação).
 
+## Observações
+O projeto contém um método de segurança para registro de novos imóveis, por se tratar de um projeto de estudo e estar hospedado na AWS, ele não permite que qualquer imóvel seja registrado a qualquer momento, necessita de realizar a alteração em uma configuração para registro de um novo imóvel. Evitando possíveis flods/spam.
 
 ## Tecnologias
 - **Spring (Boot, JPA, Security, AMQP)**
