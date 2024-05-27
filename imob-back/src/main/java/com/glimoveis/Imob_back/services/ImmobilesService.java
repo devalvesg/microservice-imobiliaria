@@ -1,23 +1,22 @@
 package com.glimoveis.Imob_back.services;
 
-import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.glimoveis.Imob_back.DTOs.ImmobilesDTO;
 import com.glimoveis.Imob_back.DTOs.Responses.ImmobileResponse;
+import com.glimoveis.Imob_back.exceptions.BlockPropertiesException;
+import com.glimoveis.Imob_back.exceptions.DeleteImmobileException;
+import com.glimoveis.Imob_back.exceptions.ImmobilesNotFoundException;
+import com.glimoveis.Imob_back.exceptions.LoginException;
 import com.glimoveis.Imob_back.models.Immobiles;
 import com.glimoveis.Imob_back.models.User;
-import com.glimoveis.Imob_back.exceptions.ImmobilesException;
 import com.glimoveis.Imob_back.repositories.AddressRepository;
 import com.glimoveis.Imob_back.repositories.ImmobileRepository;
 import com.glimoveis.Imob_back.repositories.InformationsRepository;
 import com.glimoveis.Imob_back.repositories.UserRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +27,8 @@ public class ImmobilesService {
     private InformationsRepository informationsRepository;
     private UserRepository userRepository;
     private AddressRepository addressRepository;
+
+    private boolean blockNewProperties;
     private S3Service s3Service;
 
     public ImmobilesService(ImmobileRepository immobileRepository,
@@ -44,7 +45,7 @@ public class ImmobilesService {
     }
     public ImmobileResponse findById(Long id){
         //Busca o imóvel na base de dados
-        Immobiles immobiles = immobileRepository.findById(id).orElseThrow(ImmobilesException::new);
+        Immobiles immobiles = immobileRepository.findById(id).orElseThrow(ImmobilesNotFoundException::new);
 
         //Envia o imovel para gerar a presigned url das imagens
         List<String> presignedUrlImages = s3Service.generateUrlImages(immobiles);
@@ -65,14 +66,29 @@ public class ImmobilesService {
     }
 
     public List<ImmobileResponse> findByType(String type){
-        List<Immobiles> immobiles = immobileRepository.findByType(type);
+        type = type.toLowerCase();
+        type = type.substring(0, 1).toUpperCase() + type.substring(1);
 
+        List<Immobiles> immobiles = immobileRepository.findByType(type);
         List<ImmobileResponse> imobWithPresignedUrls = generatedListImobsWithUrls(immobiles);
         return imobWithPresignedUrls;
     }
 
 
-    public Immobiles newProperty(ImmobilesDTO immobilesDTO, User user, List<MultipartFile> images) throws Exception {
+    public Immobiles newProperty(String immobileText, User user, List<MultipartFile> images) throws Exception {
+
+        //Validações para criar um novo imóvel
+        if(blockNewProperties){
+            throw new BlockPropertiesException();
+        }
+        if(user == null){
+            throw new LoginException();
+        }
+
+        //Lógica de criação de imóvel
+        ObjectMapper obj = new ObjectMapper();
+        ImmobilesDTO immobilesDTO = obj.readValue(immobileText, ImmobilesDTO.class);
+
         List<String> imagesPath = s3Service.saveImagesToBucket(images, user.getId());
 
         Immobiles immobiles = new Immobiles(immobilesDTO);
@@ -80,20 +96,24 @@ public class ImmobilesService {
 
         immobiles.setDatePublish(LocalDateTime.now());
 
-        if(userRepository.findById(user.getId()) == null) throw new Exception("Você precisa fazer login para registrar um novo imóvel");
         immobiles.setUser(user);
         return immobileRepository.save(immobiles);
     }
 
 
     public void deleteImob(Long id, User user) throws Exception {
-        Immobiles immobiles = immobileRepository.findById(id).orElseThrow(ImmobilesException::new);
-        if(!user.getId().equals(immobiles.getUser().getId())) throw new Exception("Você não tem permissão para alterar esse imóvel");
+        Immobiles immobiles = immobileRepository.findById(id).orElseThrow(ImmobilesNotFoundException::new);
+        if(user == null){
+            throw new LoginException();
+        }
+        if(!user.getId().equals(immobiles.getUser().getId())) {
+            throw new DeleteImmobileException();
+        }
         immobileRepository.deleteById(id);
     }
 
     public List<ImmobileResponse> imobByUserLogged(User user) throws Exception {
-        if(user == null) throw new Exception("Você precisa estar logado para ver os seus imóveis");
+        if(user == null) throw new LoginException();
 
         List<Immobiles> immobiles = immobileRepository.findByUserId(user.getId());
 
@@ -114,4 +134,12 @@ public class ImmobilesService {
         return imobsResponse;
     }
 
+    public String statusNewProperty() {
+        if(blockNewProperties){
+            this.blockNewProperties = false;
+            return "Recurso de bloqueio de novos imóveis desligado!";
+        }
+        this.blockNewProperties = true;
+        return "Recurso de bloqueio de novos imóveis ativo!";
+    }
 }

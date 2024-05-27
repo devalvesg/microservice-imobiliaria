@@ -1,7 +1,7 @@
 package com.glimoveis.Imob_back.services;
 
 import com.glimoveis.Imob_back.DTOs.Responses.ImmobileResponse;
-import com.glimoveis.Imob_back.exceptions.ImmobilesException;
+import com.glimoveis.Imob_back.exceptions.ImmobilesNotFoundException;
 import com.glimoveis.Imob_back.models.Immobiles;
 import com.glimoveis.Imob_back.models.User;
 import com.glimoveis.Imob_back.repositories.ImmobileRepository;
@@ -88,7 +88,7 @@ class ImmobilesServiceTest {
     void findByIdError() {
         when(this.immobileRepository.findById(Long.valueOf(1111))).thenReturn(Optional.empty());
 
-        assertThrows(ImmobilesException.class, () -> {
+        assertThrows(ImmobilesNotFoundException.class, () -> {
             ImmobileResponse immobiles = this.immobilesService.findById(Long.valueOf(1111));
         });
     }
